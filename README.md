@@ -1,6 +1,7 @@
 # Proyecto 1 – Sistema de Examen por Consola (POO con Java)
 
 Programación Orientada a Objetos con Java – Universidad Central de Chile
+
 Docente: Mg. Gonzalo Honores
 
 **Integrantes:** David Fuentes, Vicente Millaqueo
