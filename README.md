@@ -12,14 +12,6 @@ Programa por consola que administra un examen tipo cuestionario con tres tipos d
 (verdadero/falso, selección múltiple y respuesta corta), cada una con su peso, y entrega el
 resultado en porcentaje. Incluye manejo de excepciones y un registro de puntajes en archivo.
 
-## Cómo ejecutarlo
-
-```
-javac -encoding UTF-8 *.java
-java ExamDemo
-```
-
-Para salir del examen en cualquier momento, escribir `STOP`.
 
 ## Clases
 
