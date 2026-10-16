@@ -15,9 +15,9 @@ resultado en porcentaje. Incluye manejo de excepciones y un registro de puntajes
 
 ## Clases
 
-- `Pregunta`: clase abstracta con el texto, el peso y el método `buscar()`.
-- `TFpregunta`, `Selec_Mul_Pregunta`, `Resp_Cortas_Pregunta`: los tres tipos de pregunta.
-- `Exam`: colección de preguntas (máximo 10) que administra el examen.
-- `ExamenInterrumpidoException`: excepción propia para cuando el usuario escribe STOP.
-- `RegistroPuntajes`: guarda y muestra el historial de puntajes (extra).
-- `ExamDemo`: clase principal de prueba.
+-Pregunta (Clase abstracta): Contiene los atributos protegidos peso y texto, los métodos de acceso (getPeso, setPeso, getText) y declara el método abstracto buscar().   
+-TFpregunta: Extiende de Pregunta para manejar preguntas de verdadero o falso, validando entradas T o F.   
+-Resp_Cortas_Pregunta: Extiende de Pregunta para gestionar respuestas cortas, comparando la entrada del usuario mediante equalsIgnoreCase.   
+-Selec_Mul_Pregunta: Extiende de Pregunta para preguntas de selección múltiple, mostrando las alternativas indexadas por letras (a, b, c, etc.).   
+-Exam: Administra una colección de preguntas mediante un arreglo de tamaño fijo (10 elementos), permitiendo agregarlas y calcular la calificación porcentual ponderada.   
+-ExamDemo: Clase principal encargada de instanciar el examen con las preguntas de prueba y ejecutar la evaluación. 
