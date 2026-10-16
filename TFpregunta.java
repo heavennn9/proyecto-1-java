@@ -1,31 +1,36 @@
-/**
- * Pregunta de Verdadero/Falso.
- */
+import java.util.Scanner;
+
 public class TFpregunta extends Pregunta {
+    private boolean respuestaCorrecta;
 
-    private final boolean respuestaCorrecta;
-
-    public TFpregunta(String text, boolean respuestaCorrecta, int peso) {
-        super(text, peso);
+    public TFpregunta(String texto, boolean respuestaCorrecta, int peso) {
+        this.texto = texto;
         this.respuestaCorrecta = respuestaCorrecta;
+        this.peso = peso;
     }
 
     @Override
-    public boolean buscar() throws ExamenInterrumpidoException {
-        while (true) {
-            System.out.print(getText() + " (ingrese T o F): ");
-            String r = leerLinea();
+    public boolean buscar() {
+        Scanner sc = new Scanner(System.in);
+        String entrada = "";
 
-            if (r.equalsIgnoreCase("t") || r.equalsIgnoreCase("f")) {
-                boolean respuestaUsuario = r.equalsIgnoreCase("t");
-                if (respuestaUsuario == respuestaCorrecta) {
-                    System.out.println("correcta!");
-                    return true;
-                }
-                System.out.println("no, la respuesta es " + (respuestaCorrecta ? "verdadera" : "falsa"));
-                return false;
+        while (true) {
+            System.out.print(texto + " (ingrese T o F): ");
+            entrada = sc.nextLine().trim();
+
+            if (entrada.equalsIgnoreCase("T") || entrada.equalsIgnoreCase("F")) {
+                break;
             }
-            System.out.println("Respuesta no válida. Use T o F (o escriba STOP para salir).");
+            System.out.println("Entrada invalida. Intente de nuevo.");
+        }
+
+        boolean respuestaUsuario = entrada.equalsIgnoreCase("T");
+        if (respuestaUsuario == respuestaCorrecta) {
+            System.out.println("correcta!");
+            return true;
+        } else {
+            System.out.println("no, la respuesta es falsa");
+            return false;
         }
     }
 }
