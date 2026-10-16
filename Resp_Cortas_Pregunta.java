@@ -1,34 +1,26 @@
-/**
- * Pregunta de respuesta corta (una única respuesta posible).
- */
+import java.util.Scanner;
+
 public class Resp_Cortas_Pregunta extends Pregunta {
+    private String respuestaCorrecta;
 
-    private final String respuestaCorrecta;
-
-    public Resp_Cortas_Pregunta(String text, String respuestaCorrecta, int peso) {
-        super(text, peso);
-        if (respuestaCorrecta == null || respuestaCorrecta.trim().isEmpty()) {
-            throw new IllegalArgumentException("La respuesta correcta no puede estar vacía.");
-        }
-        this.respuestaCorrecta = respuestaCorrecta.trim();
+    public Resp_Cortas_Pregunta(String texto, String respuestaCorrecta, int peso) {
+        this.texto = texto;
+        this.respuestaCorrecta = respuestaCorrecta;
+        this.peso = peso;
     }
 
     @Override
-    public boolean buscar() throws ExamenInterrumpidoException {
-        String r;
-        do {
-            System.out.print(getText() + ": ");
-            r = leerLinea();
-            if (r.isEmpty()) {
-                System.out.println("Debe escribir una respuesta (o STOP para salir).");
-            }
-        } while (r.isEmpty());
+    public boolean buscar() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print(texto + ": ");
+        String respuestaUsuario = sc.nextLine().trim();
 
-        if (r.equalsIgnoreCase(respuestaCorrecta)) {
+        if (respuestaUsuario.equalsIgnoreCase(respuestaCorrecta)) {
             System.out.println("correcta!");
             return true;
+        } else {
+            System.out.println("no, la respuesta correcta es " + respuestaCorrecta);
+            return false;
         }
-        System.out.println("no, la respuesta correcta es " + respuestaCorrecta);
-        return false;
     }
 }
