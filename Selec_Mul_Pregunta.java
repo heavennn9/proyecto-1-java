@@ -1,54 +1,47 @@
-/**
- * Pregunta de selección múltiple (mínimo 2 alternativas).
- */
+import java.util.Scanner;
+
 public class Selec_Mul_Pregunta extends Pregunta {
+    private String[] opciones;
+    private int indiceCorrecto;
 
-    private final String[] elecciones;
-    private final int respuestaCorrecta; // índice en el arreglo de elecciones
-
-    public Selec_Mul_Pregunta(String text, String[] elecciones, int respuestaCorrecta, int peso) {
-        super(text, peso);
-        if (elecciones == null || elecciones.length < 2) {
-            throw new IllegalArgumentException("Una pregunta de selección múltiple necesita al menos 2 elecciones.");
-        }
-        if (elecciones.length > 26) {
-            throw new IllegalArgumentException("Máximo 26 elecciones (letras a-z).");
-        }
-        for (String e : elecciones) {
-            if (e == null || e.trim().isEmpty()) {
-                throw new IllegalArgumentException("Ninguna elección puede estar vacía.");
-            }
-        }
-        if (respuestaCorrecta < 0 || respuestaCorrecta >= elecciones.length) {
-            throw new IllegalArgumentException("El índice de la respuesta correcta está fuera de rango: " + respuestaCorrecta);
-        }
-        this.elecciones = elecciones.clone(); // copia defensiva
-        this.respuestaCorrecta = respuestaCorrecta;
+    public Selec_Mul_Pregunta(String texto, String[] opciones, int indiceCorrecto, int peso) {
+        this.texto = texto;
+        this.opciones = opciones;
+        this.indiceCorrecto = indiceCorrecto;
+        this.peso = peso;
     }
 
     @Override
-    public boolean buscar() throws ExamenInterrumpidoException {
-        System.out.println(getText() + "?");
-        for (int i = 0; i < elecciones.length; i++) {
-            System.out.println("    " + (char) ('a' + i) + ". " + elecciones[i]);
+    public boolean buscar() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println(texto + "?");
+
+        for (int i = 0; i < opciones.length; i++) {
+            char letra = (char) ('a' + i);
+            System.out.println("  " + letra + ". " + opciones[i]);
         }
-        char ultima = (char) ('a' + elecciones.length - 1);
 
-        while (true) {
+        int seleccion = -1;
+        while (seleccion == -1) {
             System.out.print("ingrese la letra de su eleccion: ");
-            String r = leerLinea().toLowerCase();
+            String input = sc.nextLine().trim().toLowerCase();
 
-            if (r.length() == 1 && r.charAt(0) >= 'a' && r.charAt(0) <= ultima) {
-                int indice = r.charAt(0) - 'a';
-                if (indice == respuestaCorrecta) {
-                    System.out.println("correcta!");
-                    return true;
+            if (!input.isEmpty()) {
+                int idx = input.charAt(0) - 'a';
+                if (idx >= 0 && idx < opciones.length) {
+                    seleccion = idx;
+                } else {
+                    System.out.println("Opcion fuera de rango.");
                 }
-                System.out.println("no, la respuesta correcta es " + (char) ('a' + respuestaCorrecta)
-                        + ". " + elecciones[respuestaCorrecta]);
-                return false;
             }
-            System.out.println("Opción no válida. Ingrese una letra entre a y " + ultima + " (o STOP para salir).");
+        }
+
+        if (seleccion == indiceCorrecto) {
+            System.out.println("correcta!");
+            return true;
+        } else {
+            System.out.println("no, la respuesta correcta era: " + (char) ('a' + indiceCorrecto));
+            return false;
         }
     }
 }
